@@ -2,7 +2,7 @@
 
 // import { createStore } from "redux";
 
-const { createStore } = redux;
+const { createStore } = Redux;
 
 console.log("App Started!!");
 
@@ -50,15 +50,36 @@ console.log("Store value is: ", store.getState());
 store.subscribe(() => {
     console.log('Subscribing to the state changes...')
     const state = store.getState();
-    console.log('The current state in the store is: ', state);
+    const balance = document.querySelector('#balance');
+    balance.innerText = state.balance;
+
+    // console.log('The current state in the store is: ', state);
 });
 
-store.dispatch(actionIncrement);
-store.dispatch(actionIncrement);
-store.dispatch(actionDecrement);
+const increaseButton = document.querySelector('#increase');
+const decreaseButton = document.querySelector('#decrease');
+const amount = document.querySelector('#amount');
 
-store.dispatch(actionIncrement (100));
-store.dispatch(actionIncrement (13));
-store.dispatch(actionDecrement (50));
+increaseButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const amountValue = parseInt(amount.value);
+    store.dispatch(actionIncrement(amountValue));
+});
 
-console.log('Store state value: ', store.getState());
+decreaseButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    const amountValue = parseInt(amount.value);
+    store.dispatch(actionDecrement(amountValue));
+});
+
+
+
+// store.dispatch(actionIncrement);
+// store.dispatch(actionIncrement);
+// store.dispatch(actionDecrement);
+
+// store.dispatch(actionIncrement (100));
+// store.dispatch(actionIncrement (13));
+// store.dispatch(actionDecrement (50));
+
+// console.log('Store state value: ', store.getState());
